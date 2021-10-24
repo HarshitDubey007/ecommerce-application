@@ -26,7 +26,7 @@ exports.signup = (req, res) => {
             })
 
             _user.save((error, data) => {
-                console.log(_user)
+                // console.log(_user)
                 if (error) {
                     return res.status(400).json({
                         message: 'Somthing went wrong'
