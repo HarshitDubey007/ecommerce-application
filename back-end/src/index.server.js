@@ -11,6 +11,7 @@ const categoryRoutes = require('./routes/category')
 const productRoutes = require('./routes/product')
 const cartRoutes = require('./routes/cart')
 //environment variable 
+
 env.config();
 
 

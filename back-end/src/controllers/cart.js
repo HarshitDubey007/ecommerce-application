@@ -4,6 +4,7 @@ exports.addItemToCart = (req, res) => {
 
 Cart.findOne({user: req.user._id})
 .exec((error, cart ) => {
+    
     if(error) return res.status(400).json({ error })
     if(cart){
         const product = req.body.cartItem.product
@@ -27,6 +28,7 @@ Cart.findOne({user: req.user._id})
                 
                 } else {
                     //    res.status(200).json({ message: cart }) 
+                    console.log(  Cart.findOne({ user: req.user.email }))
                 Cart.findOneAndUpdate({ user: req.user._id}, {
                     "$push": {
                         "cartItem": req.body.cartItem
