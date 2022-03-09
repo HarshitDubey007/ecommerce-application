@@ -28,7 +28,7 @@ Cart.findOne({user: req.user._id})
                 
                 } else {
                     //    res.status(200).json({ message: cart }) 
-                    console.log(  Cart.findOne({ user: req.user.email }))
+                    // console.log(  Cart.findOne({ user: req.user.email }))
                 Cart.findOneAndUpdate({ user: req.user._id}, {
                     "$push": {
                         "cartItem": req.body.cartItem

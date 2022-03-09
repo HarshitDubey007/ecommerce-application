@@ -24,7 +24,7 @@ const storage = multer.diskStorage({
 
 
 
-router.post('/product/create', requireSignin, adminMiddleware, upload.array('productPicture'), createProduct)
+router.post('/product/create', requireSignin, adminMiddleware, upload.array('productPictures'), createProduct)
 // router.get('/product/getcategory', getCategories)
 
 
