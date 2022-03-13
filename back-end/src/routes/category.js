@@ -34,18 +34,7 @@ router.post(
   addCategory
 );
 router.get("/category/getcategory", getCategories);
-router.post(
-  "/category/update",
-  requireSignin,
-  superAdminMiddleware,
-  upload.array("categoryImage"),
-  updateCategories
-);
-router.post(
-  "/category/delete",
-  requireSignin,
-  superAdminMiddleware,
-  deleteCategories
-);
+router.post( "/category/update",  requireSignin,  superAdminMiddleware,  upload.array("categoryImage"),  updateCategories);
+router.post("/category/delete", requireSignin, superAdminMiddleware, deleteCategories);
 
 module.exports = router;
