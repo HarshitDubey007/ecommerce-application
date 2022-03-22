@@ -16,20 +16,24 @@ exports.addItemToCart = (req, res) => {
     if (cart) {
       //if cart already exists then update cart by quantity
       let promiseArray = [];
-
-      req.body.cartItems.forEach((cartItem) => {
+      const { cartItems } = req.body
+      cartItems.forEach((cartItem) => {
+        console.log("cartItems:: ", cartItems)
         const product = cartItem.product;
         const item = cart.cartItems.find((c) => c.product == product);
         let condition, update;
         if (item) {
+          console.log("item:: ", item)
           condition = { user: req.user._id, "cartItems.product": product };
           update = {
             $set: {
-              "cartItems.$": cartItem,
+              "cartItems.$": { ...req.body.cartItems, 
+              quantity: item.quantity + Number(req.body.cartItems.quantity) },
             },
           };
         } else {
           condition = { user: req.user._id };
+          console.log("condition:: ", condition)
           update = {
             $push: {
               cartItems: cartItem,
