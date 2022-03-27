@@ -16,13 +16,14 @@ exports.signup = (req, res) => {
         error: "User already registered",
       });
 
-    const { firstName, lastName, email, password } = req.body;
+    const { firstName, lastName, email, password, country } = req.body;
     const hash_password = await bcrypt.hash(password, 10);
     const _user = new User({
       firstName,
       lastName,
       email,
       hash_password,
+      country,
       username: shortid.generate(),
     });
 
@@ -49,7 +50,11 @@ exports.signin = (req, res) => {
   User.findOne({ email: req.body.email }).exec(async (error, user) => {
     if (error) return res.status(400).json({ error });
     if (user) {
+
       const isPassword = await user.authenticate(req.body.password);
+      if(isPassword != true){
+        return res.status(400).json({msg: "Enter a valid password"})
+      }
       if (isPassword && user.role === "user") {
         // const token = jwt.sign(
         //   { _id: user._id, role: user.role },
@@ -63,11 +68,14 @@ exports.signin = (req, res) => {
           user: { _id, firstName, lastName, email, role, fullName },
         });
       } else {
+      console.log("Error from: signin",error)
+
         return res.status(400).json({
           message: "Something went wrong",
         });
       }
     } else {
+      console.log("Error from: signin: ",error)
       return res.status(400).json({ message: "Something went wrong" });
     }
   });

@@ -36,6 +36,13 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    country: {
+      type: String,
+      required: true,
+      trim: true,
+      min: 3,
+      max: 20,
+    },
     role: {
       type: String,
       enum: ["user", "admin", "super-admin"],
