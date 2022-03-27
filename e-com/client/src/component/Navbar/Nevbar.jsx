@@ -341,7 +341,7 @@ export default function Navbar() {
 									</li>
 									<li><Link className="dropdown-item dropdown-toggle dropdown-toggle-nocaret" to="#">Shop Pages <i className='bx bx-chevron-right float-end'></i></Link>
 										<ul className="submenu dropdown-menu">
-											<li><Link className="dropdown-item" to="shop-cart.html">Shop Cart</Link>
+											<li><Link className="dropdown-item" to="/cart">Shop Cart</Link>
 											</li>
 											<li><Link className="dropdown-item" to="shop-categories.html">Shop Categories</Link>
 											</li>
