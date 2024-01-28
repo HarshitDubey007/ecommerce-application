@@ -24,17 +24,17 @@ function SignInSide() {
   const navigate = useNavigate();
 
   const validationSchema = Yup.object({
-    userid: Yup.string().required("user Id is required"),
+    email: Yup.string().required("user Id is required"),
     password: Yup.string().required("password is required"), // Fix the typo in the field name
   });
 
 
   const formik = useFormik({
-    initialValues: { userid: "", password: "" }, // Fix the typo in the "password" field
+    initialValues: { email: "", password: "" }, // Fix the typo in the "password" field
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       console.log("Form Values:", values);
-      const apiUrl = "user/login";
+      const apiUrl = "admin/signin";
       const method = "post";
       try {
         console.log("VALUEEE:: ", values)
@@ -65,7 +65,7 @@ function SignInSide() {
   return (
     <CoverLayout
       title="Welcome back to PAYZORROMM"
-      description="Enter your userid and password"
+      description="Enter your email and password"
       image=""
     >
       <SoftBox>
@@ -78,17 +78,17 @@ function SignInSide() {
                 fullWidth
                 autoFocus
                 label="User id"
-                name="userid"
-                value={formik.values["userid"]}
-                onBlur={() => formik.setFieldTouched("userid", true)}
+                name="email"
+                value={formik.values["email"]}
+                onBlur={() => formik.setFieldTouched("email", true)}
                 error={
-                  formik.touched["userid"] && !!formik.errors["userid"]
+                  formik.touched["email"] && !!formik.errors["email"]
                 }
                 helperText={
-                  formik.touched["userid"] && formik.errors["userid"]
+                  formik.touched["email"] && formik.errors["email"]
                 }
                 onChange={(value) =>
-                  formik.setFieldValue("userid", value)
+                  formik.setFieldValue("email", value)
                 }
               />
             </Grid>
