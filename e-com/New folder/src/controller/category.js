@@ -9,7 +9,7 @@ function createCategories(categories, parentId = null) {
     category = categories.filter((cat) => cat.parentId == undefined);
   } else {
     category = categories.filter((cat) => cat.parentId == parentId);
-  } 
+  }
 
   for (let cate of category) {
     categoryList.push({
@@ -25,29 +25,42 @@ function createCategories(categories, parentId = null) {
   return categoryList;
 }
 
-exports.addCategory = (req, res) => {
-  const categoryObj = {
-    name: req.body.name,
-    slug: `${slugify(req.body.name)}-${shortid.generate()}`,
-    createdBy: req.user._id,
-  };
+exports.addCategory = async (req, res) => {
+  try {
+    const { name, parentId } = req.body;
 
-  if (req.file) {
-    categoryObj.categoryImage = "/public/" + req.file.filename;
-  }
+    const slug = `${slugify(name)}-${shortid.generate()}`;
 
-  if (req.body.parentId) {
-    categoryObj.parentId = req.body.parentId;
-  }
+    const categoryObj = {
+      name,
+      slug,
+      createdBy: req.user._id,
+    };
 
-  const cat = new Category(categoryObj);
-  cat.save((error, category) => {
-    if (error) return res.status(400).json({ error });
-    if (category) {
-      return res.status(201).json({ category });
+    // Add categoryImage property if a file is uploaded
+    if (req.file) {
+      categoryObj.categoryImage = "/public/" + req.file.filename;
     }
-  });
+
+    // Add parentId property if provided
+    if (parentId) {
+      categoryObj.parentId = parentId;
+    }
+
+    const newCategory = new Category(categoryObj);
+    const savedCategory = await newCategory.save();
+
+    if (savedCategory) {
+      return res.status(201).json({ category: savedCategory });
+    } else {
+      return res.status(400).json({ message: "Something went wrong" });
+    }
+  } catch (error) {
+    console.error("Error from addCategory API:", error.message);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
 };
+
 
 exports.getCategories = (req, res) => {
   Category.find({}).exec((error, categories) => {

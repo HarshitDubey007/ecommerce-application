@@ -9,61 +9,61 @@ import { getFormData } from "../../helper/helper";
 export default function AccountAddress() {
   const { isLoggedIn, userInfo } = useSelector((state) => state?.user?.value);
 
-	const [isSignupSuccessful, setIsSignupSuccessful] = useState();
-  const [address, setAddress ] = userState()
+  const [isSignupSuccessful, setIsSignupSuccessful] = useState();
+  const [address, setAddress] = useState()
 
   useEffect(() => {
-				dispatch(login({ isLoggedIn: true, userInfo: data.data })) ;
+    // dispatch(login({ isLoggedIn: true, userInfo: data.data }));
 
-    const add = api.post("user/getaddress",{
-      headers: {
-        'Authorization': `Basic ${token}`
-      }
-    });
-    add
+    // const add = api.post("user/getaddress", {
+    //   headers: {
+    //     'Authorization': `Basic ${token}`
+    //   }
+    // });
+    // add
   })
 
   function registerAddress(e) {
-		e.preventDefault();
-			const formData = getFormData(e.target);
-			const addAddress = api.post("/user/address/create", formData);
-	
-			toast
-			  .promise(addAddress, {
-				loading: "Add addressing in progress...",
-				success: (data) => {
-				  console.log(data);
-				  setIsSignupSuccessful({ ...data.data.data });
-				  return `Congratulations, you have successfully registered.`;
-				},
-				error: (err) => {
-				  return (
-					err?.response?.data?.errors ??
-					err?.response?.data?.message ??
-					err?.message ??
-					"OOPs something went wrong."
-				  );
-				},
-			  })
-			  .then((data) => {
-				e.target.reset();
-				const uData = { isLoggedIn: true, userInfo: data.data }; 
-				// localStorage.setItem("ourStore", JSON.stringify(uData));
-				// dispatch(login({ isLoggedIn: true, userInfo: data.data }));
-				Navigate("../dashboard", { replace: true });
-			  });
-		  
-	  }
+    e.preventDefault();
+    const formData = getFormData(e.target);
+    const addAddress = api.post("/user/address/create", formData);
+
+    toast
+      .promise(addAddress, {
+        loading: "Add addressing in progress...",
+        success: (data) => {
+          console.log(data);
+          setIsSignupSuccessful({ ...data.data.data });
+          return `Congratulations, you have successfully registered.`;
+        },
+        error: (err) => {
+          return (
+            err?.response?.data?.errors ??
+            err?.response?.data?.message ??
+            err?.message ??
+            "OOPs something went wrong."
+          );
+        },
+      })
+      .then((data) => {
+        e.target.reset();
+        const uData = { isLoggedIn: true, userInfo: data.data };
+        // localStorage.setItem("ourStore", JSON.stringify(uData));
+        // dispatch(login({ isLoggedIn: true, userInfo: data.data }));
+        Navigate("../dashboard", { replace: true });
+      });
+
+  }
 
   return (
     <> <div class="card shadow-none mb-0">
       <div class="card-body">
         <form class="row g-3" onSubmit={(e) => { registerAddress(e) }}>
-        <input
-              type="hidden"
-              name="member_id"
-              value={userInfo?.user?._id}
-            />
+          <input
+            type="hidden"
+            name="member_id"
+            value={userInfo?.user?._id}
+          />
           <div class="col-md-6">
             <label class="form-label">Name</label>
             <input type="text" name="name" class="form-control" />

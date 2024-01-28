@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import needHeaderFooter from "./helper/need_header_footer";
 import PrivateComponent from "./pages/Auth/PrivateComponent";
 import Catageory from "./pages/Catageory/Catageory";
+import Dashboard from "./pages/Admin/Dashboard/Dashboard";
 
 const Router = () => {
   const location = useLocation();
@@ -25,13 +26,16 @@ const Router = () => {
       {/* {needHeaderFooter?.[pathName] && !pathName.startsWith("/dashboard") && (
       )} */}
       <Navbar />
-      
+
       <Routes>
         <Route exact path="/" element={<Home />} />
+        <Route exact path="/dashboard" element={<Dashboard />}>
+          <Route path=":page" element={<Dashboard />} />
+        </Route>
         <Route exact path="/signup" element={<SignUp />} />
         <Route exact path="/signin" element={<SignIn />} />
-        <Route element={<PrivateComponent/>}>
-        <Route exact path="/forgot-password" element={<ForgotPassword />} />
+        <Route element={<PrivateComponent />}>
+          <Route exact path="/forgot-password" element={<ForgotPassword />} />
         </Route>
         <Route exact path="/userAccount" element={<UserAccount />}>
           <Route path=":page" element={<UserAccount />} />

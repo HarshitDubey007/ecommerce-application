@@ -21,8 +21,8 @@ const adminOrderRoute = require("./routes/admin/order.routes");
 env.config();
 
 // mongodb connection
-//mongodb+srv://root:<password>@cluster0.8pl1w.mongodb.net/<dbname>?retryWrites=true&w=majority
-mongoose.connect(`mongodb+srv://dbUser:dbUser@cluster0.fqkuj.mongodb.net/ecommerce?retryWrites=true&w=majority`,
+//mongodb+srv://dbUser:dbUser@cluster0.fqkuj.mongodb.net/ecommerce
+mongoose.connect(`mongodb+srv://dbUser:dbuser@cluster0.fqkuj.mongodb.net/ecommerce?retryWrites=true&w=majority`,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -32,7 +32,9 @@ mongoose.connect(`mongodb+srv://dbUser:dbUser@cluster0.fqkuj.mongodb.net/ecommer
 )
   .then(() => {
     console.log("Database connected");
-  });
+  }).catch((error) => {
+    console.log(error)
+  })
 
 app.use(cors());
 app.use(express.json());

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router'
 import { Link } from 'react-router-dom'
-import AccountAddress from './AccountAddress'
+// import AccountAddress from './AccountAddress'
 import AccountDashboard from './AccountDashboard'
 import AccountDetails from './AccountDetails'
 import AccountDownloards from './AccountDownloards'
@@ -14,7 +14,7 @@ export default function UserAccount() {
         dashboard: <AccountDashboard />,
         orders: <AccountOrder />,
         downloads: <AccountDownloards />,
-        addresses: <AccountAddress />,
+        // addresses: <AccountAddress />,
         payment: <AccountPayment />,
         details: <AccountDetails />,
       };

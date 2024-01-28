@@ -9,13 +9,14 @@ export default function Navbar() {
     const category = api.get("/category/getcategory").then((data) => {
       setcatageoryList([...data.data.categoryList])
     })
-    console.log("category", catageoryList)
 
-  },[])
+  }, [])
 
   const auth = localStorage.getItem("ourStore");
   const authentication = JSON.parse(auth);
   console.log(authentication, "authentication")
+  console.log("catageoryList", catageoryList)
+
   return (
     <>
       <div className="header-wrapper">
@@ -390,9 +391,53 @@ export default function Navbar() {
                   </Link>
                   <div className="dropdown-menu dropdown-large-menu">
                     <div className="row">
-                      <div className="col-md-4">
+                      {catageoryList.map((catageorys) => (
+                        <div className="col-md-4">
+                          <h6 className="large-menu-title">{catageorys.name}</h6>
+                          <ul>
+                            {catageorys.children.map((subCatageorys) => (
+                              <li>
+                                <Link to="#">{subCatageorys.name}</Link>
+                              </li>
+                            ))}
+
+                          </ul>
+                          {/* <ul className="">
+                             <li>
+                               <Link to="#">Casual T-Shirts</Link>
+                             </li>
+                             <li>
+                               <Link to="#">Formal Shirts</Link>
+                             </li>
+                             <li>
+                               <Link to="#">Jackets</Link>
+                             </li>
+                             <li>
+                               <Link to="#">Jeans</Link>
+                             </li>
+                             <li>
+                               <Link to="#">Dresses</Link>
+                             </li>
+                             <li>
+                               <Link to="#">Sneakers</Link>
+                             </li>
+                             <li>
+                               <Link to="#">Belts</Link>
+                             </li>
+                             <li>
+                               <Link to="#">Sports Shoes</Link>
+                             </li>
+                           </ul> */}
+                          {/* <ul>
+                            {
+                              catageoryList?.map((cat) => <li><Link to={`/catageory/${cat.name}`}>{cat.name}</Link></li>)
+                            }
+                          </ul> */}
+                        </div>
+                      ))}
+                      {/* <div className="col-md-4">
                         <h6 className="large-menu-title">Fashion</h6>
-                        {/* <ul className="">
+                        <ul className="">
                           <li>
                             <Link to="#">Casual T-Shirts</Link>
                           </li>
@@ -417,11 +462,6 @@ export default function Navbar() {
                           <li>
                             <Link to="#">Sports Shoes</Link>
                           </li>
-                        </ul> */}
-                        <ul>
-                          {
-                            catageoryList?.map((cat) => <li><Link to={`/catageory/${cat.name}`}>{cat.name}</Link></li>)
-                          }
                         </ul>
                       </div>
                       <div className="col-md-4">
@@ -452,7 +492,7 @@ export default function Navbar() {
                             <Link to="#">PC Monitors</Link>
                           </li>
                         </ul>
-                      </div>
+                      </div> */}
                       <div className="col-md-4">
                         <div className="pramotion-banner1">
                           <img

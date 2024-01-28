@@ -1082,7 +1082,7 @@ export default function Home() {
 				</section>
 				{/* <!--end Advertise banners--> */}
 				{/* <!--start categories--> */}
-				<section class="py-4">
+				<section class="py-4">2
 					<div class="container">
 						<div class="d-flex align-items-center">
 							<h5 class="text-uppercase mb-0">Browse Catergory</h5>
